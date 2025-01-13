@@ -55,7 +55,7 @@ type Withdrawal struct {
 }
 
 type Check struct {
-	ID     int
+	ID     string
 	Date   string
 	Amount string
 }
@@ -170,35 +170,84 @@ func main() {
 				}
 
 			// deposits
-			case labels[2], labels[4], labels[5]:
+			case labels[2]:
 				var entry []string
+				var deposit Deposit
 
 				match := dateAtStartRegex.FindStringSubmatch(line)
-				trimmedLine := dateRegex.ReplaceAllString(line, "")
 				if match != nil {
 					entry = append(entry, match[0])
 				} else {
 					continue
 				}
+
+				trimmedLine := dateAtStartRegex.ReplaceAllString(line, "")
 
 				match = amountRegex.FindStringSubmatch(trimmedLine)
-				trimmedLine = amountRegex.ReplaceAllString(line, "")
+				description := amountRegex.ReplaceAllString(line, "")
+				description = strings.TrimSpace(description)
 				if match != nil {
 					entry = append(entry, match[0])
 				} else {
 					continue
 				}
 
-				entry = append(entry, trimmedLine)
+				entry = append(entry, description)
 				row := strings.Join(entry, ",")
 				_, err = txt.WriteString(row + "\n")
 				if err != nil {
 					panic(err)
 				}
 
+				deposit.Date = entry[0]
+				deposit.Amount = entry[1]
+				deposit.Description = entry[2]
+
+				jsonData.Deposits = append(jsonData.Deposits, deposit)
+
+			// Withdrawals
+			case labels[4], labels[5]:
+				var entry []string
+				var withdrawal Withdrawal
+
+				match := dateAtStartRegex.FindStringSubmatch(line)
+				if match != nil {
+					entry = append(entry, match[0])
+				} else {
+					continue
+				}
+				trimmedLine := dateAtStartRegex.ReplaceAllString(line, "")
+
+				match = amountRegex.FindStringSubmatch(trimmedLine)
+				description := amountRegex.ReplaceAllString(line, "")
+				description = strings.TrimSpace(description)
+				if match != nil {
+					entry = append(entry, match[0])
+				} else {
+					continue
+				}
+
+				entry = append(entry, description)
+				row := strings.Join(entry, ",")
+				_, err = txt.WriteString(row + "\n")
+				if err != nil {
+					panic(err)
+				}
+
+				withdrawal.Date = entry[0]
+				withdrawal.Amount = entry[1]
+				withdrawal.Description = entry[2]
+
+				if label == labels[4] {
+					jsonData.Withdrawals.Debit = append(jsonData.Withdrawals.Debit, withdrawal)
+				} else if label == labels[5] {
+					jsonData.Withdrawals.Electronic = append(jsonData.Withdrawals.Electronic, withdrawal)
+				}
+
 			// checks
 			case labels[3]:
 				var entry []string
+				var check Check
 
 				match := checkIdRegex.FindStringSubmatch(line)
 				if match != nil {
@@ -226,6 +275,12 @@ func main() {
 				if err != nil {
 					panic(err)
 				}
+
+				check.ID = entry[0]
+				check.Date = entry[1]
+				check.Amount = entry[2]
+
+				jsonData.Checks = append(jsonData.Checks, check)
 
 			default:
 				continue
