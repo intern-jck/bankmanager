@@ -15,7 +15,7 @@ var txtPath = "data/test.txt"
 // Regexes
 var dateAtStartRegex = regexp.MustCompile(`^([0-9]{2}\/[0-9]{2})`)
 var dateRegex = regexp.MustCompile(`([0-9]{2}\/[0-9]{2})`)
-var amountRegex = regexp.MustCompile(`\$(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)|\d{1,3}(?:,\d{3})*(?:\.\d{2})?$`)
+var amountRegex = regexp.MustCompile(`\$(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)|\d{1,3}(?:,\d{3})*(?:\.\d{2})?$|-\d{1,3}(?:,\d{3})*(?:\.\d{2})?`)
 var checkIdRegex = regexp.MustCompile(`^([0-9]{1,})`)
 
 var labels = []string{
@@ -72,24 +72,29 @@ type BankJson struct {
 
 func main() {
 
+	// Create files
+	// Json for statement data
 	jsonFile, err := os.Create("test.json")
 	if err != nil {
 		panic(err)
 	}
 	defer jsonFile.Close()
 
+	// PDF to parse
 	file, err := os.Open(pdfTxtPath)
 	if err != nil {
 		panic(err)
 	}
 	defer file.Close()
 
+	// Text file to save cleaned PDF
 	txt, err := os.Create(txtPath)
 	if err != nil {
 		panic(err)
 	}
 	defer txt.Close()
 
+	// To parse PDF txt file
 	scanner := bufio.NewScanner(file)
 	readTxt := false
 	startTk := "*start*"
@@ -132,14 +137,16 @@ func main() {
 				var entry []string
 
 				match := amountRegex.FindStringSubmatch(line)
+				amount := ""
 				if match != nil {
-					entry = append(entry, match[0])
+					amount = regexp.MustCompile(`[\$-]`).ReplaceAllString(match[0], "")
+					entry = append(entry, amount)
 				}
 
-				sum := amountRegex.ReplaceAllString(line, "")
-				sum = strings.TrimSpace(sum)
+				description := amountRegex.ReplaceAllString(line, "")
+				description = strings.TrimSpace(description)
 
-				entry = append(entry, sum)
+				entry = append(entry, description)
 				row := strings.Join(entry, ",")
 
 				_, err = txt.WriteString(row + "\n")
@@ -147,15 +154,19 @@ func main() {
 					panic(err)
 				}
 
-				switch sum {
+				switch description {
 				case "Beginning Balance":
-					jsonData.CheckingSummary.Balance.Starting = match[0]
+					jsonData.CheckingSummary.Balance.Starting = entry[0]
 				case "Ending Balance":
-					jsonData.CheckingSummary.Balance.Ending = match[0]
+					jsonData.CheckingSummary.Balance.Ending = entry[0]
 				case "Deposits and Additions":
-					jsonData.CheckingSummary.Deposits = match[0]
+					jsonData.CheckingSummary.Deposits = entry[0]
 				case "Checks Paid":
-					jsonData.CheckingSummary.Checks = match[0]
+					jsonData.CheckingSummary.Checks = entry[0]
+				case "ATM & Debit Card Withdrawals":
+					jsonData.CheckingSummary.Withdrawals.Debit = entry[0]
+				case "Electronic Withdrawals":
+					jsonData.CheckingSummary.Withdrawals.Electronic = entry[0]
 				}
 
 			// deposits
@@ -223,12 +234,13 @@ func main() {
 		}
 	}
 
-	encoder := json.NewEncoder(jsonFile)
-	encoder.SetIndent("", "  ")
-	encoder.Encode(jsonData)
-
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
+
+	// Save the json data
+	encoder := json.NewEncoder(jsonFile)
+	encoder.SetIndent("", "  ")
+	encoder.Encode(jsonData)
 
 }
