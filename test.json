@@ -1,0 +1,20 @@
+{
+  "CheckingSummary": {
+    "Balance": {
+      "Starting": "$2,881.63",
+      "Ending": "$2,749.53"
+    },
+    "Deposits": "7,516.40",
+    "Checks": "",
+    "Withdrawals": {
+      "Debit": "",
+      "Electronic": ""
+    }
+  },
+  "Deposits": null,
+  "Withdrawals": {
+    "Debit": null,
+    "Electronic": null
+  },
+  "Checks": null
+}
