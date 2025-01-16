@@ -1,0 +1,107 @@
+html {
+  font-size: 100%;
+  font-family: monospace;
+}
+
+body {
+  height: 100vh;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+#esp-content {
+  border: 4px solid black;
+  margin: 2rem;
+  padding: 1rem;
+  width: 40rem;
+  height: 30rem;
+  display: flex;
+  flex-direction: column;
+}
+
+#esp-header {
+  border: 4px solid black;
+  /* height: 4rem; */
+}
+
+#esp-controls {
+  border: 4px solid black;
+  /* height: 4rem; */
+  display: flex;
+  flex-direction: column;
+}
+
+.esp-controls-row {
+  /* border: 2px solid blue; */
+  /* height: 2rem; */
+  margin: 0.2rem;
+}
+
+.esp-controls-row span {
+  font-size: 1.6rem;
+  font-weight: bold;
+}
+
+.esp-controls-row button {
+  border: 2px solid black;
+  background-color: white;
+  width: 5rem;
+  height: 2rem;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
+  font-family: monospace;
+}
+
+.esp-controls-row button:hover {
+  cursor: pointer;
+  background-color: orange;
+}
+
+#ws-control-row {
+  text-align: end;
+  padding-right: 1rem;
+}
+
+#cmd-control-row {
+  text-align: end;
+  padding-right: 1rem;
+}
+
+#cmd-control-row input {
+  border: 2px solid black;
+  width: 20rem;
+  height: 2rem;
+  font-size: 1rem;
+  font-family: monospace;
+}
+
+#esp-data-div {
+  border: 4px solid black;
+  height: 20rem;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+
+#esp-data-table {
+  border: 2px solid black;
+  margin: 1rem;
+  border-collapse: collapse;
+}
+
+#esp-data-table tr {
+  border: 2px solid black;
+}
+
+#esp-data-table td {
+  border: 2px solid black;
+  width: 30%;
+  text-align: center;
+}
