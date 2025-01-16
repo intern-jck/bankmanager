@@ -3,7 +3,8 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"text/template"
+
+	"bankmanager/tmplmanager"
 )
 
 // var greetings = []string{"Hello, World!", "Hola, Mundo!", "Bonjour, Monde!", "Hallo, Welt!"}
@@ -20,25 +21,24 @@ func main() {
 	// 	index = (index + 1) % len(greetings)
 	// })
 
-	http.HandleFunc("/", indexHandler)
-	http.HandleFunc("/test", testHandler)
+	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
+	http.HandleFunc("/", tmplmanager.Index)
+	http.HandleFunc("/overview", tmplmanager.Overview)
 	http.ListenAndServe(":8080", nil)
 }
 
-func indexHandler(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("templates/index.html"))
-	err := tmpl.Execute(w, nil)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
-}
+// func indexHandler(w http.ResponseWriter, r *http.Request) {
+// 	tmpl := template.Must(template.ParseFiles("templates/index.html"))
+// 	err := tmpl.Execute(w, nil)
+// 	if err != nil {
+// 		http.Error(w, err.Error(), http.StatusInternalServerError)
+// 	}
+// }
 
-func testHandler(w http.ResponseWriter, r *http.Request) {
-	// testMsg := "<h2>TEST MESSAGE WORKS!</h2>"
-	// fmt.Fprint(w, testMsg)
-	tmpl := template.Must(template.ParseFiles("templates/test.html"))
-	err := tmpl.Execute(w, nil)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
-}
+// func testHandler(w http.ResponseWriter, r *http.Request) {
+// 	tmpl := template.Must(template.ParseFiles("templates/test.html"))
+// 	err := tmpl.Execute(w, nil)
+// 	if err != nil {
+// 		http.Error(w, err.Error(), http.StatusInternalServerError)
+// 	}
+// }

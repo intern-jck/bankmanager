@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <title>Bank Manaager</title>
     <link rel="shortcut icon" href="#" />
-    
+
     <link rel="stylesheet" href="/public/styles.css" />
 
     <script src="https://unpkg.com/htmx.org"></script>
@@ -13,12 +13,17 @@
 
   <body>
     <nav>
-      BANK MANAGER
-      <button hx-get="/test" hx-target="#app" hx-swap="outerHTML">TEST</button>
-
+      <span>BANK MANAGER</span>
+      <div id="nav-menu">
+        <button hx-get="/overview" hx-target="#app" hx-swap="innerHTML">
+          overview
+        </button>
+        <button hx-get="/account" hx-target="#app" hx-swap="innerHTML">
+          Account
+        </button>
+      </div>
     </nav>
-    <div id="app">
-
-    </div>
+    
+    <div id="app"></div>
   </body>
 </html>
