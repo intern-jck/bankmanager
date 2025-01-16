@@ -4,13 +4,18 @@
     <meta charset="utf-8" />
     <title>Bank Manaager</title>
     <link rel="shortcut icon" href="#" />
+    
     <link rel="stylesheet" href="/public/styles.css" />
+
+    <script src="https://unpkg.com/htmx.org"></script>
     <script type="text/javascript" src="/public/script.js" defer></script>
   </head>
 
   <body>
     <nav>
       BANK MANAGER
+      <button hx-get="/test" hx-target="#app" hx-swap="outerHTML">TEST</button>
+
     </nav>
     <div id="app">
 
