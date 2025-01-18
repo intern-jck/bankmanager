@@ -10,12 +10,6 @@ import (
 	"bankmanager/types"
 )
 
-type test struct {
-	Name   string
-	Value  int
-	Floats []float32
-}
-
 func Overview(w http.ResponseWriter, r *http.Request) {
 
 	// get json data
@@ -26,9 +20,9 @@ func Overview(w http.ResponseWriter, r *http.Request) {
 	}
 	defer file.Close()
 
-	jsonData := types.BankJson{}
+	bankData := types.BankJson{}
 	decoder := json.NewDecoder(file)
-	err = decoder.Decode(&jsonData)
+	err = decoder.Decode(&bankData)
 	if err != nil {
 		fmt.Println(err)
 		http.Error(w, "json data error: "+err.Error(), http.StatusInternalServerError)
@@ -37,14 +31,10 @@ func Overview(w http.ResponseWriter, r *http.Request) {
 	// get template
 	tmpl := template.Must(template.ParseFiles("templates/overview.html"))
 
-	data := test{
-		Name:   "test",
-		Value:  123,
-		Floats: []float32{123.4, 567.8, 901.2},
-	}
+	jsonData, _ := json.Marshal(bankData)
 
 	// serve template
-	err = tmpl.ExecuteTemplate(w, "overview", data)
+	err = tmpl.Execute(w, string(jsonData))
 
 	if err != nil {
 		fmt.Println(err)

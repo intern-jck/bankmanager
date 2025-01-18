@@ -1,41 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <title>Bank Manaager</title>
-    <link rel="shortcut icon" href="#" />
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+    <title>My Website</title>
+    
+    <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <link rel="stylesheet" href="/public/styles.css" />
-
-    <script src="https://unpkg.com/htmx.org"></script>
-    <script type="text/javascript" src="/public/script.js" defer></script>
+    <!-- <link rel="stylesheet" href="/public/style.css" /> -->
+    <!-- <script src="index.js"></script> -->
   </head>
-
   <body>
     <nav>
-      <div class="nav-header">
-        <span>BANK MANAGER</span>
-      </div>
-      <div class="nav-menu">
-        <button
-          onclick="test()"
-          hx-get="/overview"
-          hx-target="#app"
-          hx-swap="innerHTML"
-        >
-          Overview
-        </button>
-      </div>
-      <div class="nav-social"></div>
+        <div class="nav-branc">
+            Bank Manager
+        </div>
+        <div class="nav-menu">
+            <button hx-get="/overview" hx-target="#app" hx-swap="innerHTML">Overview</button>
+        </div>
     </nav>
-
-    <h1>NAME: {{ .Name }}</h1>
     <div id="app"></div>
-
-    <script>
-      var data = {{ .Name }}
-    </script>
   </body>
 </html>

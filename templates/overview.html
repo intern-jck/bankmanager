@@ -1,19 +1,93 @@
-{{define "overview"}}
 <div>
-  <div id="overview" class="tmpl">
-    <div class="tmpl-header">
-      <h2>Bank Overview</h2>
-    </div>
-    <div class="tmpl-content">
-      <span>Name: {{.Name}}</span>
-    </div>
+  <div>
+    <canvas id="summaryChart"></canvas>
   </div>
-</div>
+  <div>
 
-<script>
-  let value = "{{.Value}}"
-  console.log(value)
-  var data = '{{.}}';
-  console.log(data)
-</script>
-{{end}}
+  <canvas id="withChart"></canvas>
+  </div>
+
+  <script>
+    const data = JSON.parse(`{{ . }}`);
+    console.log(data);
+
+    const summaryStarting = data.CheckingSummary.Balance.Starting;
+    const summaryEnding = data.CheckingSummary.Balance.Ending;
+    const summaryDebit = data.CheckingSummary.Withdrawals.Debit;
+    const summaryElectronic = data.CheckingSummary.Withdrawals.Electronic;
+
+    const summaryData = [
+      makeFloat(summaryStarting),
+      makeFloat(summaryEnding),
+      makeFloat(summaryDebit),
+      makeFloat(summaryElectronic),
+    ];
+
+    const debitWithdrawals = data.Withdrawals.Debit;
+    const electronicWithdrawals = data.Withdrawals.Electronic;
+
+    const debitAmounts = [];
+    const debitLabels = [];
+    const electronicAmounts = [];
+    const electronicLabels = [];
+
+    for (let d of debitWithdrawals) {
+      debitAmounts.push(makeFloat(d.Amount))
+      debitLabels.push(d.Date)
+    }
+
+    console.log(debitAmounts)
+
+    // make graphs
+    const summaryCtx = document.getElementById("summaryChart").getContext("2d");
+    const depositsCtx = document
+      .getElementById("withChart")
+      .getContext("2d");
+
+    const sumGraphData = {
+      labels: ["Starting", "Ending", "Debit", "Electronic"],
+      datasets: [
+        {
+          label: "Summary",
+          data: summaryData,
+          backgroundColor: "rgb(20, 200, 100)",
+          borderColor: "rgb(0, 0, 0)",
+          borderWidth: 3,
+        },
+      ],
+    };
+
+    const summaryChart = new Chart(summaryCtx, {
+      type: "bar",
+      data: sumGraphData,
+      options: {},
+    });
+
+
+    const withGraphData = {
+      labels: debitLabels,
+      datasets: [
+        {
+          label: "Summary",
+          data: debitAmounts,
+          backgroundColor: "rgb(20, 200, 100)",
+          borderColor: "rgb(0, 0, 0)",
+          borderWidth: 3,
+        },
+      ],
+    };
+
+    const withChart = new Chart(depositsCtx, {
+      type: "line",
+      data: withGraphData,
+      options: {},
+    });
+
+    // utils
+    function makeFloat(str) {
+      let cleanStr = str.replace(",", "");
+      cleanStr = cleanStr.replace("$", "");
+      return parseFloat(cleanStr);
+    }
+  </script>
+</div>

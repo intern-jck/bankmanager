@@ -74,7 +74,7 @@ func ParsePdf() {
 
 	// Create files
 	// Json for statement data
-	jsonFile, err := os.Create("test.json")
+	jsonFile, err := os.Create("json/2018/20180104.json")
 	if err != nil {
 		panic(err)
 	}
