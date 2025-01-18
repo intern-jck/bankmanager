@@ -11,6 +11,7 @@ import (
 )
 
 func Overview(w http.ResponseWriter, r *http.Request) {
+
 	// get json data
 	file, err := os.Open("data/test.json")
 	if err != nil {
@@ -22,6 +23,10 @@ func Overview(w http.ResponseWriter, r *http.Request) {
 	jsonData := types.BankJson{}
 	decoder := json.NewDecoder(file)
 	err = decoder.Decode(&jsonData)
+	if err != nil {
+		fmt.Println(err)
+		http.Error(w, "json data error: "+err.Error(), http.StatusInternalServerError)
+	}
 
 	// get template
 	tmpl := template.Must(template.ParseFiles("templates/overview.html"))
@@ -30,6 +35,6 @@ func Overview(w http.ResponseWriter, r *http.Request) {
 	err = tmpl.Execute(w, jsonData)
 	if err != nil {
 		fmt.Println(err)
-		http.Error(w, err.Error(), http.StatusInternalServerError)
+		http.Error(w, "template error: "+err.Error(), http.StatusInternalServerError)
 	}
 }

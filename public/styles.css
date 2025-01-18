@@ -17,15 +17,42 @@ body {
 
 nav {
   border: 4px solid black;
+  height: 6rem;
   text-align: center;
   font-size: 2rem;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  /* grid-template-columns: 10rem 10rem 10rem; */
+  grid-template-columns: 10% 80% 10%;
+}
+
+.nav-header {
+  border: 2px solid black;
+  grid-column: 1;
+}
+
+.nav-menu {
+  border: 2px solid black;
+  grid-column: 2;
+  text-align: center;
+}
+
+.nav-menu button {
+  border: 2px solid black;
+  background-color: aliceblue;
+  margin:auto;
+  font-size: 2rem;
+
+  place-self: center; 
+}
+
+.nav-social {
+  border: 2px solid black;
+  grid-column: 3;
 }
 
 #app {
   border: 4px solid black;
-  height: 40rem;
+  /* height: 40rem; */
   width: 60rem;
   margin: auto;
 }
@@ -42,5 +69,5 @@ nav {
 .tmpl-content {
   border: 2px solid black;
   width: 100%;
-  height: 30rem;
+  /* height: 30rem; */
 }

@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <title>Bank Manaager</title>
     <link rel="shortcut icon" href="#" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <link rel="stylesheet" href="/public/styles.css" />
 
@@ -13,17 +15,20 @@
 
   <body>
     <nav>
-      <span>BANK MANAGER</span>
-      <div id="nav-menu">
+      <div class="nav-header">
+        <span>BANK MANAGER</span>
+      </div>
+      <div class="nav-menu">
         <button hx-get="/overview" hx-target="#app" hx-swap="innerHTML">
           overview
         </button>
-        <button hx-get="/account" hx-target="#app" hx-swap="innerHTML">
-          Account
+        <button hx-get="/plot" hx-target="#app" hx-swap="innerHTML">
+          Plot
         </button>
       </div>
+      <div class="nav-social"></div>
     </nav>
-    
+
     <div id="app"></div>
   </body>
 </html>
