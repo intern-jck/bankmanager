@@ -2,6 +2,10 @@ window.onload = () => {
   console.log("JavaScript loaded!");
 };
 
+function test() {
+  console.log('button pressed')
+}
+
 // let socket = null;
 
 // document.getElementById("cmd-send-btn").onclick = function (event) {

@@ -12,8 +12,8 @@ func main() {
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
 
 	http.HandleFunc("/", tmplmanager.Index)
+
 	http.HandleFunc("/overview", tmplmanager.Overview)
-	http.HandleFunc("/plot", tmplmanager.BankPlot)
 
 	http.ListenAndServe(":8080", nil)
 }

@@ -1,15 +1,19 @@
+{{define "overview"}}
 <div>
   <div id="overview" class="tmpl">
     <div class="tmpl-header">
       <h2>Bank Overview</h2>
     </div>
     <div class="tmpl-content">
-      <span>Starting: {{.CheckingSummary.Balance.Starting}}</span>
-      <span>Ending: {{.CheckingSummary.Balance.Ending}}</span>
+      <span>Name: {{.Name}}</span>
     </div>
   </div>
-
-  <script>
-    const data = {{.}}
-  </script>
 </div>
+
+<script>
+  let value = "{{.Value}}"
+  console.log(value)
+  var data = '{{.}}';
+  console.log(data)
+</script>
+{{end}}
