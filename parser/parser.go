@@ -1,6 +1,7 @@
 package parser
 
 import (
+	"bankmanager/types"
 	"bufio"
 	"encoding/json"
 	"log"
@@ -50,7 +51,7 @@ func CreateJson(path string) {
 	// Flag to start parsing text
 	readTxt := false
 
-	jsonData := BankJson{}
+	jsonData := types.BankJson{}
 
 	// Parse the txt file
 	scanner := bufio.NewScanner(txtPdf)
@@ -111,7 +112,7 @@ func CreateJson(path string) {
 			// "deposits and additions"
 			case sections[2]:
 
-				var deposit Deposit
+				var deposit types.Deposit
 
 				amountStr := ""
 
@@ -141,7 +142,7 @@ func CreateJson(path string) {
 			// "checks paid section3"
 			case sections[3]:
 
-				var check Check
+				var check types.Check
 				amountStr := ""
 
 				match := checkIdRegex.FindStringSubmatch(line)
@@ -173,7 +174,7 @@ func CreateJson(path string) {
 			// "electronic withdrawal"
 			case sections[4], sections[5]:
 
-				var withdrawal Withdrawal
+				var withdrawal types.Withdrawal
 
 				amountStr := ""
 
