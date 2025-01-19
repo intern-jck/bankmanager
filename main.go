@@ -3,6 +3,8 @@ package main
 import (
 	"bankmanager/parser"
 	"fmt"
+	"log"
+	"os"
 	// "net/http"
 	// "bankmanager/tmplmanager"
 )
@@ -16,5 +18,16 @@ func main() {
 
 	// http.ListenAndServe(":8080", nil)
 
-	parser.CreateJson("2018/20180104.txt")
+	// Read all files in the directory
+	dirPath := "data/textpdf/2018"
+	files, err := os.ReadDir(dirPath)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, file := range files {
+
+		parser.CreateJson("2018/" + file.Name())
+
+	}
 }
