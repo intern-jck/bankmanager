@@ -1,16 +1,13 @@
 package types
 
 type Summary struct {
-	Balance struct {
-		Starting string
-		Ending   string
-	}
-	Deposits    string
-	Checks      string
-	Withdrawals struct {
-		Debit      string
-		Electronic string
-	}
+	Beginning  string
+	Ending     string
+	Deposits   string
+	Checks     string
+	Debit      string
+	Electronic string
+	Fees       string
 }
 
 type Deposit struct {
@@ -32,11 +29,8 @@ type Check struct {
 }
 
 type BankJson struct {
-	CheckingSummary Summary
-	Deposits        []Deposit
-	Withdrawals     struct {
-		Debit      []Withdrawal
-		Electronic []Withdrawal
-	}
-	Checks []Check
+	Summary     Summary
+	Deposits    []Deposit
+	Withdrawals []Withdrawal
+	Checks      []Check
 }
