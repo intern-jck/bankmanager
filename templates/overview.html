@@ -3,56 +3,55 @@
     <canvas id="summaryChart"></canvas>
   </div>
   <div>
+    <canvas id="withdrawalsChart"></canvas>
+  </div>
 
-  <canvas id="withChart"></canvas>
+  <div>
+    <canvas id="depositsChart"></canvas>
   </div>
 
   <script>
+    // Get bank data
     const data = JSON.parse(`{{ . }}`);
     console.log(data);
 
-    const summaryStarting = data.CheckingSummary.Balance.Starting;
-    const summaryEnding = data.CheckingSummary.Balance.Ending;
-    const summaryDebit = data.CheckingSummary.Withdrawals.Debit;
-    const summaryElectronic = data.CheckingSummary.Withdrawals.Electronic;
+    // Create summary graph
+    const summaryBeginning = data.Summary.Beginning;
+    const summaryEnding = data.Summary.Ending;
+    const summaryDeposits = data.Summary.Deposits;
+    const summaryChecks = data.Summary.Checks;
+    const summaryDebit = data.Summary.Debit;
+    const summaryElectronic = data.Summary.Electronic;
 
     const summaryData = [
-      makeFloat(summaryStarting),
-      makeFloat(summaryEnding),
-      makeFloat(summaryDebit),
-      makeFloat(summaryElectronic),
+      parseFloat(summaryBeginning),
+      parseFloat(summaryEnding),
+      parseFloat(summaryDeposits),
+      parseFloat(summaryChecks),
+      parseFloat(summaryDebit),
+      parseFloat(summaryElectronic),
     ];
 
-    const debitWithdrawals = data.Withdrawals.Debit;
-    const electronicWithdrawals = data.Withdrawals.Electronic;
+    const summaryLabels = [
+      "Beginning",
+      "Ending",
+      "Deposits",
+      "Checks",
+      "Debit",
+      "Electronic",
+    ];
 
-    const debitAmounts = [];
-    const debitLabels = [];
-    const electronicAmounts = [];
-    const electronicLabels = [];
-
-    for (let d of debitWithdrawals) {
-      debitAmounts.push(makeFloat(d.Amount))
-      debitLabels.push(d.Date)
-    }
-
-    console.log(debitAmounts)
-
-    // make graphs
     const summaryCtx = document.getElementById("summaryChart").getContext("2d");
-    const depositsCtx = document
-      .getElementById("withChart")
-      .getContext("2d");
 
     const sumGraphData = {
-      labels: ["Starting", "Ending", "Debit", "Electronic"],
+      labels: summaryLabels,
       datasets: [
         {
-          label: "Summary",
+          label: "Summary 2018",
           data: summaryData,
           backgroundColor: "rgb(20, 200, 100)",
           borderColor: "rgb(0, 0, 0)",
-          borderWidth: 3,
+          borderWidth: 2,
         },
       ],
     };
@@ -63,31 +62,70 @@
       options: {},
     });
 
+    // Create Withdrawals Graph
+    const withdrawalAmounts = [];
+    const withdrawalLabels = [];
+
+    for (let w of data.Withdrawals) {
+      withdrawalAmounts.push(parseFloat(w.Amount));
+      withdrawalLabels.push(w.Date);
+    }
+
+    console.log(withdrawalAmounts, withdrawalLabels);
+    const withdrawalsCtx = document
+      .getElementById("withdrawalsChart")
+      .getContext("2d");
 
     const withGraphData = {
-      labels: debitLabels,
+      labels: withdrawalLabels,
       datasets: [
         {
-          label: "Summary",
-          data: debitAmounts,
-          backgroundColor: "rgb(20, 200, 100)",
+          label: "Withdrawals",
+          data: withdrawalAmounts,
+          backgroundColor: "rgb(200, 20, 100)",
           borderColor: "rgb(0, 0, 0)",
-          borderWidth: 3,
+          borderWidth: 2,
         },
       ],
     };
 
-    const withChart = new Chart(depositsCtx, {
+    const withdrawalsChart = new Chart(withdrawalsCtx, {
       type: "line",
       data: withGraphData,
       options: {},
     });
 
-    // utils
-    function makeFloat(str) {
-      let cleanStr = str.replace(",", "");
-      cleanStr = cleanStr.replace("$", "");
-      return parseFloat(cleanStr);
+    // Create Deposits Graph
+    const depositAmounts = [];
+    const depositLabels = [];
+
+    for (let d of data.Deposits) {
+      depositAmounts.push(parseFloat(d.Amount));
+      depositLabels.push(d.Date);
     }
+
+    const depositCtx = document
+      .getElementById("depositsChart")
+      .getContext("2d");
+
+    const depositsGraphData = {
+      labels: depositLabels,
+      datasets: [
+        {
+          label: "Deposits",
+          data: depositAmounts,
+          backgroundColor: "rgb(20, 200, 100)",
+          borderColor: "rgb(0, 0, 0)",
+          borderWidth: 2,
+        },
+      ],
+    };
+
+    const depositsChart = new Chart(depositCtx, {
+      type: "line",
+      data: depositsGraphData,
+      options: {},
+    });
+
   </script>
 </div>

@@ -13,9 +13,9 @@ import (
 func Overview(w http.ResponseWriter, r *http.Request) {
 
 	// get json data
-	file, err := os.Open("data/test.json")
+	file, err := os.Open("data/json/2018/20180104.json")
 	if err != nil {
-
+		fmt.Println("json open error", err)
 		http.Error(w, fmt.Sprintf("Error opening data: %v", err), http.StatusInternalServerError)
 	}
 	defer file.Close()
@@ -24,7 +24,7 @@ func Overview(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(file)
 	err = decoder.Decode(&bankData)
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println("json decode error: ", err)
 		http.Error(w, "json data error: "+err.Error(), http.StatusInternalServerError)
 	}
 
@@ -37,7 +37,7 @@ func Overview(w http.ResponseWriter, r *http.Request) {
 	err = tmpl.Execute(w, string(jsonData))
 
 	if err != nil {
-		fmt.Println(err)
+		fmt.Println("template execute error:", err)
 		http.Error(w, "template error: "+err.Error(), http.StatusInternalServerError)
 	}
 }

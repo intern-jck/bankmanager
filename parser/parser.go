@@ -92,12 +92,16 @@ func CreateJson(path string) {
 				}
 
 				description := amountRegex.ReplaceAllString(line, "")
+				description = strings.Replace(description, "$", "", -1)
+				description = strings.Replace(description, "-", "", -1)
 				description = strings.TrimSpace(description)
+
+				// fmt.Println("description: ", description, "amount: ", amountStr)
 
 				switch description {
 				case "Beginning Balance":
 					jsonData.Summary.Beginning = amountStr
-				case "Ending":
+				case "Ending Balance":
 					jsonData.Summary.Ending = amountStr
 				case "Deposits and Additions":
 					jsonData.Summary.Deposits = amountStr
