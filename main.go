@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bankmanager/parser"
 	"fmt"
 	// "net/http"
 	// "bankmanager/tmplmanager"
@@ -14,4 +15,6 @@ func main() {
 	// http.HandleFunc("/overview", tmplmanager.Overview)
 
 	// http.ListenAndServe(":8080", nil)
+
+	parser.CreateJson("2018/20180104.txt")
 }

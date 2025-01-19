@@ -14,14 +14,14 @@ if [ -f "$pdfpath" ]; then
     echo "Converting File: $pdfpath"
     
     base_name=$(basename "${pdfpath%-statements-8630-.pdf}")
-    pdftotext -raw -nopgbrk $pdfpath "$txtpath/$base_name.txt"
+    pdftotext -layout -nopgbrk $pdfpath "$txtpath/$base_name.txt"
 
 elif [ -d "$pdfpath" ]; then
     echo "Converting Dir: $pdfpath"
   
     for file in $pdfpath/*.pdf; do
       base_name=$(basename "${file%-statements-8630-.pdf}")
-      pdftotext -raw -nopgbrk $file "$txtpath/$base_name.txt"
+      pdftotext -layout -nopgbrk $file "$txtpath/$base_name.txt"
     done
 
 else
