@@ -17,32 +17,31 @@ body {
 
 nav {
   border: 4px solid black;
-  height: 6rem;
+  height: 4rem;
   margin-bottom: 2rem;
   text-align: center;
   font-size: 2rem;
   display: grid;
   grid-template-columns: 4fr 10fr 4fr;
+  align-items: center;
 }
 
 .nav-header {
-  border: 2px solid black;
+  /* border: 2px solid black; */
   grid-column: 1;
 }
 
 .nav-menu {
-  border: 2px solid black;
+  /* border: 2px solid black; */
   grid-column: 2;
   text-align: center;
 }
 
 .nav-menu button {
   border: 2px solid black;
-  background-color: aliceblue;
-  margin:auto;
+  background-color: rgb(255, 255, 255);
+  margin: auto;
   font-size: 2rem;
-
-  place-self: center; 
 }
 
 .nav-social {
