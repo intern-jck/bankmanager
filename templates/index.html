@@ -18,28 +18,38 @@
   <body>
     <nav>
       <div class="nav-header">Bank Manager</div>
-      <div class="nav-menu"></div>
+      <div class="nav-menu">
+        <select id="year-select" hx-get="/statement" hx-target="#app" hx-trigger="change" hx-params="">
+          <option name="2018" value="2018">
+            2018
+          </option>
+          <option name="2019" value="2019">
+            2019
+          </option>
+
+        </select>
+      </div>
     </nav>
 
     <div id="app">
-      <div class="app-header">
+      <!-- <div class="app-header">
         <button hx-get="/overview" hx-target="#app-content" hx-swap="innerHTML">
           Overview
         </button>
-        <button hx-get="/overview" hx-target="#app-content" hx-swap="innerHTML">
+        <button hx-get="/account" hx-target="#app-content" hx-swap="innerHTML">
           Account
         </button>
-        <button hx-get="/overview" hx-target="#app-content" hx-swap="innerHTML">
+        <button hx-get="/graphs" hx-target="#app-content" hx-swap="innerHTML">
           Graphs
         </button>
-        <button hx-get="/overview" hx-target="#app-content" hx-swap="innerHTML">
+        <button hx-get="/settings" hx-target="#app-content" hx-swap="innerHTML">
           Settings
         </button>
-      </div>
-      
-      <div id="app-content" class="app-content">
+      </div> -->
 
-      </div>
+      {{ template "app-header" .}}
+
+      <div id="app-content" class="app-content"></div>
     </div>
   </body>
 </html>

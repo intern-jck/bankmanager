@@ -22,16 +22,15 @@ func main() {
 	// }
 
 	// for _, file := range files {
-
 	// 	parser.CreateJson("2018/" + file.Name())
-
 	// }
 
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
 
 	http.HandleFunc("/", tmplmanager.Index)
-	http.HandleFunc("/overview", tmplmanager.Overview)
+	http.HandleFunc("/overview/{id}", tmplmanager.Overview)
 
+	fmt.Println("Server @ http://localhost:8080/")
 	http.ListenAndServe(":8080", nil)
 
 }

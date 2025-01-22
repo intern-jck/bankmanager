@@ -1,5 +1,9 @@
+
+let currentStatement = {};
+
 window.onload = () => {
   console.log("JavaScript loaded!");
+  currentStatement = {};
 };
 
 function test() {
