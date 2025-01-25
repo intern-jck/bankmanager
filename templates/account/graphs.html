@@ -1,0 +1,20 @@
+<div class="grpahs">
+    <div class="graph-container">
+      <canvas id="summaryChart"></canvas>
+    </div>
+
+    <div class="graph-container">
+      <canvas id="withdrawalsChart"></canvas>
+    </div>
+  
+    <div class="graph-container">
+      <canvas id="depositsChart"></canvas>
+    </div>
+  
+    <script>
+      // Get bank data
+      data = JSON.parse(`{{ . }}`);
+      createGraphs(data);
+    </script>
+  </div>
+  

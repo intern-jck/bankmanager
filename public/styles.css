@@ -10,9 +10,12 @@ html {
 }
 
 body {
-  /* height: 100vh; */
-  margin: 0;
+  border: 4px solid black;
+  margin: auto;
+  margin-top: 1rem;
   box-sizing: border-box;
+  width: 1280px;
+  height: 1024px;
 }
 
 *,
@@ -35,6 +38,7 @@ button:hover {
 nav {
   border: 4px solid black;
   height: 4rem;
+  margin: 1rem;
   margin-bottom: 2rem;
   text-align: center;
   font-size: 2rem;
@@ -64,42 +68,33 @@ nav {
 
 #app {
   border: 4px solid black;
-  margin: auto;
+  margin: 1rem;
+  min-height: 30rem;
+}
+
+.account {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.account-dashboard {
+  border: 2px solid blue;
+  width: 20rem;
+  height: 60rem;
+  margin: 1rem;
   display: flex;
   flex-direction: column;
-}
-
-.app-header {
-  border: 2px solid black;
-  height: 4rem;
-  display: flex;
-  align-items: center;
   gap: 1rem;
-  padding-left: 1rem;
 }
 
-.app-header button {
+.account-dashboard button {
   font-size: 2rem;
-  padding-left: 1rem;
-  padding-right: 2rem;
 }
 
-.app-content {
-  border: 2px solid black;
+.account-content {
+  border: 2px solid blue;
   height: 60rem;
-}
-
-/* 
-.tmpl {
-  border: 2px solid black;
   margin: 1rem;
+  flex-grow: 1;
 }
-
-.tmpl-header {
-  border: 2px solid black;
-}
-
-.tmpl-content {
-  border: 2px solid black;
-  width: 100%;
-} */

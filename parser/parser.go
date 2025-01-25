@@ -232,3 +232,15 @@ func CreateJson(path string) {
 	encoder.Encode(jsonData)
 
 }
+
+// Read all files in the directory
+// dirPath := "data/textpdf/2018"
+// files, err := os.ReadDir(dirPath)
+// if err != nil {
+// 	fmt.Println("read dir error: ", err)
+//  return
+// }
+
+// for _, file := range files {
+// 	parser.CreateJson("2018/" + file.Name())
+// }

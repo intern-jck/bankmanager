@@ -1,0 +1,16 @@
+{{define "app-dashboard"}}
+<div class="app-dashboard">
+  <button hx-get="/summary" hx-target="#app-content" hx-swap="innerHTML">
+    Summary
+  </button>
+  <button hx-get="/deposits" hx-target="#app-content" hx-swap="innerHTML">
+    Deposits
+  </button>
+  <button hx-get="/withdrawals" hx-target="#app-content" hx-swap="innerHTML">
+    Withdrawals
+  </button>
+  <button hx-get="/graphs" hx-target="#app-content" hx-swap="innerHTML">
+    Graphs
+  </button>
+</div>
+{{end}}

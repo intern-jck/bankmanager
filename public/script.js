@@ -1,4 +1,3 @@
-
 let currentStatement = {};
 
 window.onload = () => {
@@ -7,89 +6,117 @@ window.onload = () => {
 };
 
 function test() {
-  console.log('button pressed')
+  console.log("button pressed");
 }
 
-// let socket = null;
+let data = {}
+function createGraphs(data) {
+  // Create summary graph
+  const summaryBeginning = data.Summary.Beginning;
+  const summaryEnding = data.Summary.Ending;
+  const summaryDeposits = data.Summary.Deposits;
+  const summaryChecks = data.Summary.Checks;
+  const summaryDebit = data.Summary.Debit;
+  const summaryElectronic = data.Summary.Electronic;
 
-// document.getElementById("cmd-send-btn").onclick = function (event) {
-//   if (!socket) {
-//     return false;
-//   }
+  const summaryData = [
+    parseFloat(summaryBeginning),
+    parseFloat(summaryEnding),
+    parseFloat(summaryDeposits),
+    parseFloat(summaryChecks),
+    parseFloat(summaryDebit),
+    parseFloat(summaryElectronic),
+  ];
 
-//   const cmdInput = document.getElementById("cmd-input").value;
-//   socket.send(cmdInput);
-// };
+  const summaryLabels = [
+    "Beginning",
+    "Ending",
+    "Deposits",
+    "Checks",
+    "Debit",
+    "Electronic",
+  ];
 
-// document.getElementById("ws-close-btn").onclick = function (evt) {
-//   if (!socket) {
-//     console.log("NO SOCKET");
-//     return false;
-//   }
+  const summaryCtx = document.getElementById("summaryChart").getContext("2d");
 
-//   console.log("CLOSING SOCKET");
-//   socket.close();
-//   socket = null;
-// };
+  const sumGraphData = {
+    labels: summaryLabels,
+    datasets: [
+      {
+        label: "Summary 2018",
+        data: summaryData,
+        backgroundColor: "rgb(20, 200, 100)",
+        borderColor: "rgb(0, 0, 0)",
+        borderWidth: 2,
+      },
+    ],
+  };
 
-// document.getElementById("ws-open-btn").onclick = function (evt) {
-//   if (socket) {
-//     console.log("OPEN SOCKET");
-//     return false;
-//   }
+  const summaryChart = new Chart(summaryCtx, {
+    type: "bar",
+    data: sumGraphData,
+    options: {},
+  });
 
-//   console.log("CREATING SOCKET");
-//   // if in a script file, only need endpoint
-//   socket = new WebSocket("/esp");
-//   return true;
-//   // socket.onopen = function (evt) {
-//   //   console.log("OPEN");
-//   // };
+  // Create Withdrawals Graph
+  const withdrawalAmounts = [];
+  const withdrawalLabels = [];
 
-//   // ws.onclose = function (evt) {
-//   //   console.log("CLOSE");
-//   //   ws = null;
-//   // };
+  for (let w of data.Withdrawals) {
+    withdrawalAmounts.push(parseFloat(w.Amount));
+    withdrawalLabels.push(w.Date);
+  }
 
-//   // ws.onmessage = function (evt) {
-//   //   console.log("RESPONSE: " + evt.data);
-//   // };
+  const withdrawalsCtx = document
+    .getElementById("withdrawalsChart")
+    .getContext("2d");
 
-//   // ws.onerror = function (evt) {
-//   //   console.log("ERROR: " + evt.data);
-//   // };
+  const withGraphData = {
+    labels: withdrawalLabels,
+    datasets: [
+      {
+        label: "Withdrawals",
+        data: withdrawalAmounts,
+        backgroundColor: "rgb(200, 20, 100)",
+        borderColor: "rgb(0, 0, 0)",
+        borderWidth: 2,
+      },
+    ],
+  };
 
-//   // return false;
-// };
+  const withdrawalsChart = new Chart(withdrawalsCtx, {
+    type: "line",
+    data: withGraphData,
+    options: {},
+  });
 
-// let row_count = 0;
+  // Create Deposits Graph
+  const depositAmounts = [];
+  const depositLabels = [];
 
-// function addDataToTable(data) {
-//   const table = document.getElementById("esp-data-body");
-//   const row = table.insertRow(-1);
+  for (let d of data.Deposits) {
+    depositAmounts.push(parseFloat(d.Amount));
+    depositLabels.push(d.Date);
+  }
 
-//   const cell_1 = row.insertCell(0);
-//   const cell_2 = row.insertCell(1);
-//   const cell_3 = row.insertCell(2);
+  const depositCtx = document.getElementById("depositsChart").getContext("2d");
 
-//   cell_1.textContent = data.Status;
-//   cell_2.textContent = data.Cmd ? data.Cmd : "None";
-//   cell_3.textContent = data.Val.toString();
+  const depositsGraphData = {
+    labels: depositLabels,
+    datasets: [
+      {
+        label: "Deposits",
+        data: depositAmounts,
+        backgroundColor: "rgb(20, 200, 100)",
+        borderColor: "rgb(0, 0, 0)",
+        borderWidth: 2,
+      },
+    ],
+  };
 
-//   row_count += 1;
-// }
-
-// window.onload = (event) => {
-//   console.log("Page Load");
-//   socket = new WebSocket("/esp");
-
-//   socket.addEventListener("open", (event) => {
-//     socket.send("socket open");
-//   });
-
-//   socket.addEventListener("message", (event) => {
-//     console.log("ESPSRV: ", event.data);
-//     const espData = JSON.parse(event.data);
-//     addDataToTable(espData);
-//   });
-// };
+  const depositsChart = new Chart(depositCtx, {
+    type: "line",
+    data: depositsGraphData,
+    options: {},
+  });
+}

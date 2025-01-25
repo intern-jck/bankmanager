@@ -1,55 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Bank Manager</title>
 
-    <script
-      src="https://unpkg.com/htmx.org@2.0.4"
-      integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Bank Manager</title>
 
-    <link rel="stylesheet" type="text/css" href="public/styles.css" />
-  </head>
-  <body>
-    <nav>
-      <div class="nav-header">Bank Manager</div>
-      <div class="nav-menu">
-        <select id="year-select" hx-get="/statement" hx-target="#app" hx-trigger="change" hx-params="">
-          <option name="2018" value="2018">
-            2018
-          </option>
-          <option name="2019" value="2019">
-            2019
-          </option>
+  <script src="https://unpkg.com/htmx.org@2.0.4"
+    integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-        </select>
-      </div>
-    </nav>
+  <link rel="stylesheet" type="text/css" href="public/styles.css" />
+  <script src="public/script.js"></script>
+</head>
 
-    <div id="app">
-      <!-- <div class="app-header">
-        <button hx-get="/overview" hx-target="#app-content" hx-swap="innerHTML">
-          Overview
-        </button>
-        <button hx-get="/account" hx-target="#app-content" hx-swap="innerHTML">
-          Account
-        </button>
-        <button hx-get="/graphs" hx-target="#app-content" hx-swap="innerHTML">
-          Graphs
-        </button>
-        <button hx-get="/settings" hx-target="#app-content" hx-swap="innerHTML">
-          Settings
-        </button>
-      </div> -->
-
-      {{ template "app-header" .}}
-
-      <div id="app-content" class="app-content"></div>
+<body>
+  <nav>
+    <div class="nav-header">Bank Manager</div>
+    <div class="nav-menu">
+      <button hx-get="/account" hx-target="#app" hx-swap="innerHTML">
+        Account
+      </button>
+      <button hx-get="/settings" hx-target="#app" hx-swap="innerHTML">
+        Settings
+      </button>
     </div>
-  </body>
+  </nav>
+
+  <div id="app">
+  </div>
+</body>
+
 </html>
