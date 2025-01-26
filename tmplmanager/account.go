@@ -23,7 +23,19 @@ func Account(w http.ResponseWriter, r *http.Request) {
 
 func Summary(w http.ResponseWriter, r *http.Request) {
 
+	id := r.PathValue("id")
+	if id != "" {
+		fmt.Println("id: ", id)
+		http.Error(w, "id error: ", http.StatusInternalServerError)
+
+		// fmt.Printf("ID: %v\n", id)
+		// year := id[:4]
+		// fmt.Println("ID:", year, id)
+	} else {
+		fmt.Println("No id param")
+	}
 	// Get template
+
 	tmpl := template.Must(template.ParseFiles("templates/account/summary.html"))
 
 	err := tmpl.Execute(w, nil)

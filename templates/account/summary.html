@@ -1,6 +1,25 @@
 <div class="summary">
-  <div class="summary-header"></div>
+  <div class="summary-header">
+    <h3>Account Summary</h3>
+
+    <div class="date-selector">
+      <div>
+        <label for="start">Start date:</label>
+
+        <!-- <input type="date" id="start" name="account-start" value="2018-01-04" min="2018-01-04" max="2018-12-31" /> -->
+        <select hx-get="/summary" id="summary-year" hx-target="#select-test" hx-trigger="change" hx-params="selected: this.value" s>
+
+          <option value="2018">2018</option>
+          <option value="2019">2019</option>
+        </select>
+        <div></div>
+      </div>
+    </div>
+  </div>
   <div class="summary-content">
+    <div id="select-test">
+      <h3>TEST: {{ . }} </h3>
+    </div>
     <div class="summary-info">
       <h3>Info</h3>
       <span>Month: </span>
@@ -21,6 +40,7 @@
       <span>Fees: {{ .Fees }}</span>
     </div>
   </div>
+
 </div>
 
 <script>
