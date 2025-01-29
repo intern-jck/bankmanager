@@ -4,5 +4,8 @@
 </div>
 <script>
     console.log("summary graph loaded")
+    data = JSON.parse(`{{ . }}`);
+    console.log(data)
+    createBarGraph(data.ID, data.Data, data.Title, data.Labels, {})
 </script>
 {{end}}
