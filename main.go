@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"bankmanager/bankapi"
 	"bankmanager/tmplmanager"
 )
 
@@ -22,12 +23,14 @@ func main() {
 	http.HandleFunc("/settings", tmplmanager.Settings)
 
 	// account elements
-	// http.HandleFunc("/summary", tmplmanager.Summary)
-	http.HandleFunc("/summary/{id}", tmplmanager.Summary)
+	http.HandleFunc("/summary", tmplmanager.Summary)
 	http.HandleFunc("/deposits", tmplmanager.Deposits)
 	http.HandleFunc("/withdrawals", tmplmanager.Withdrawals)
 	http.HandleFunc("/graphs", tmplmanager.Graphs)
 	http.HandleFunc("/budget", tmplmanager.Budget)
+
+	// data
+	http.HandleFunc("/data", bankapi.GetData)
 
 	// server
 	fmt.Println("Server @ http://localhost:8080/")

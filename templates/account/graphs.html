@@ -1,20 +1,21 @@
 <div class="grpahs">
-    <div class="graph-container">
-      <canvas id="summaryChart"></canvas>
-    </div>
-
-    <div class="graph-container">
-      <canvas id="withdrawalsChart"></canvas>
-    </div>
-  
-    <div class="graph-container">
-      <canvas id="depositsChart"></canvas>
-    </div>
-  
-    <script>
-      // Get bank data
-      data = JSON.parse(`{{ . }}`);
-      createGraphs(data);
-    </script>
+  <div class="graph-container">
+    <canvas id="bar-graph"></canvas>
   </div>
-  
+
+  <!-- <div class="graph-container">
+      <canvas id="withdrawalsChart"></canvas>
+    </div> -->
+
+  <!-- <div class="graph-container">
+      <canvas id="depositsChart"></canvas>
+    </div> -->
+
+  <script>
+    // Get bank data
+    data = JSON.parse(`{{ . }}`);
+    // createGraphs(data);
+    createBarGraph(data.ID, data.Data, data.Title, data.Labels, {})
+
+  </script>
+</div>

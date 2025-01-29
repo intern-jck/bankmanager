@@ -1,8 +1,8 @@
 package tmplmanager
 
 import (
+	"html/template"
 	"net/http"
-	"text/template"
 )
 
 // const defaultStatement = "data/json/2018/20180104.json"

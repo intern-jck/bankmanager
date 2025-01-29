@@ -3,47 +3,42 @@
     <h3>Account Summary</h3>
 
     <div class="date-selector">
-      <div>
-        <label for="start">Start date:</label>
-
-        <!-- <input type="date" id="start" name="account-start" value="2018-01-04" min="2018-01-04" max="2018-12-31" /> -->
-        <select hx-get="/summary" id="summary-year" hx-target="#select-test" hx-trigger="change" hx-params="selected: this.value" s>
-
+      <form id="date-selector" hx-post="/summary" hx-target="#summary-content" hx-swap="innerHTML"
+        hx-trigger="change, change from:[form='date-selector']">
+        <label for="account-year">Year</label>
+        <select id="account-year" name="account-year" hx-trigger="change">
           <option value="2018">2018</option>
           <option value="2019">2019</option>
+          <option value="2020">2020</option>
+          <option value="2021">2021</option>
+          <option value="2022">2022</option>
+          <option value="2023">2023</option>
+          <option value="2024">2024</option>
+          <option value="2025">2025</option>
         </select>
-        <div></div>
-      </div>
+        <label for="account-month">Month</label>
+
+        <select id="account-month" name="account-month">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12">12</option>
+        </select>
+        <!-- <button type="submit">GET</button> -->
+      </form>
     </div>
   </div>
-  <div class="summary-content">
-    <div id="select-test">
-      <h3>TEST: {{ . }} </h3>
-    </div>
-    <div class="summary-info">
-      <h3>Info</h3>
-      <span>Month: </span>
-      <span>Year: </span>
-      <span>Name: John Moneyman</span>
-      <span>Address: 123 Street Road Moneytown, NC 27705</span>
-    </div>
-    <div class="summary-balance">
-      <h3>Balance</h3>
-      <span>Beginning: {{ .Beginning }}</span>
-      <span>Ending: {{ .Ending }}</span>
-    </div>
-    <div class="summary-withdrawals">
-      <h3>Withdrawals</h3>
-      <span>Debit: {{ .Debit }}</span>
-      <span>Electronics: {{ .Electronic }}</span>
-      <span>Checks: {{ .Checks }}</span>
-      <span>Fees: {{ .Fees }}</span>
-    </div>
+
+  <div id="summary-content" class="summary-content">
+    {{ template "summary-table" . }}
   </div>
 
 </div>
-
-<script>
-  // summaryData = JSON.parse(`{{ . }}`);
-  // console.log(summaryData);
-</script>

@@ -1,8 +1,8 @@
 package tmplmanager
 
 import (
+	"html/template"
 	"net/http"
-	"text/template"
 )
 
 const defaultStatementId = "20180104"
