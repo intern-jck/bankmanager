@@ -45,13 +45,9 @@ func Summary(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	year := r.FormValue("account-year")
-	month := r.FormValue("account-month")
-	fmt.Println("FORM:", year, month)
+	// default path
+	statementPath := "data/json/2018/20180104.json"
 
-	statementPath := ""
-
-	statementPath = "data/json/2018/20180104.json"
 	// get json data
 	file, err := os.Open(statementPath)
 	if err != nil {
@@ -103,20 +99,17 @@ func SummaryGraph(w http.ResponseWriter, r *http.Request) {
 
 	year := r.FormValue("account-year")
 	month := r.FormValue("account-month")
-	fmt.Println("FORM:", year, month)
 
 	statementPath := ""
 
 	if year != "" && month != "" {
 		// get the file
 		pattern := "data/json/" + year + "/" + year + month + "*.json"
-		fmt.Println(pattern)
 
 		matches, err := filepath.Glob(pattern)
 		if err != nil {
 			fmt.Println("Error:", err)
 		}
-		fmt.Println("Found: ", len(matches), "For: ", pattern)
 
 		if len(matches) == 0 {
 			fmt.Println("No matching files found.")
@@ -130,16 +123,12 @@ func SummaryGraph(w http.ResponseWriter, r *http.Request) {
 			}
 			defer file.Close()
 
-			fmt.Println("FOUND:", match)
 			statementPath = match
 		}
-		// statementPath = "data/json/2018/20180104.json"
 
 	} else {
 		statementPath = "data/json/2018/20180104.json"
 	}
-
-	// fmt.Println(statementPath)
 
 	// get json data
 	file, err := os.Open(statementPath)
@@ -174,7 +163,6 @@ func SummaryGraph(w http.ResponseWriter, r *http.Request) {
 		Labels: []string{"Beginning", "Ending", "Deposits", "Checks", "Debit", "Electronic", "Fees"},
 	}
 	jsonData, _ := json.Marshal(graphData)
-	fmt.Println(string(jsonData))
 
 	err = tmpl.ExecuteTemplate(w, "summary-graph", string(jsonData))
 
