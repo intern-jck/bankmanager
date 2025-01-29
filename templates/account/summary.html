@@ -3,7 +3,7 @@
     <h3>Account Summary</h3>
 
     <div class="date-selector">
-      <form id="date-selector" hx-post="/summary" hx-target="#summary-content" hx-swap="innerHTML"
+      <form id="date-selector" hx-post="/summary-graph" hx-target="#summary-content" hx-swap="innerHTML"
         hx-trigger="change, change from:[form='date-selector']">
         <label for="account-year">Year</label>
         <select id="account-year" name="account-year" hx-trigger="change">

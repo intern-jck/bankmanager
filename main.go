@@ -24,6 +24,7 @@ func main() {
 
 	// account elements
 	http.HandleFunc("/summary", router.Summary)
+	http.HandleFunc("/summary-graph", router.SummaryGraph)
 	http.HandleFunc("/deposits", router.Deposits)
 	http.HandleFunc("/withdrawals", router.Withdrawals)
 	http.HandleFunc("/graphs", router.Graphs)
