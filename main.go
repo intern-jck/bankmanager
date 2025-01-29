@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"bankmanager/bankapi"
-	"bankmanager/tmplmanager"
+	"bankmanager/router"
 )
 
 func main() {
@@ -16,18 +16,18 @@ func main() {
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
 
 	// home page
-	http.HandleFunc("/", tmplmanager.Index)
+	http.HandleFunc("/", router.Index)
 
 	// page elements
-	http.HandleFunc("/account", tmplmanager.Account)
-	http.HandleFunc("/settings", tmplmanager.Settings)
+	http.HandleFunc("/account", router.Account)
+	http.HandleFunc("/settings", router.Settings)
 
 	// account elements
-	http.HandleFunc("/summary", tmplmanager.Summary)
-	http.HandleFunc("/deposits", tmplmanager.Deposits)
-	http.HandleFunc("/withdrawals", tmplmanager.Withdrawals)
-	http.HandleFunc("/graphs", tmplmanager.Graphs)
-	http.HandleFunc("/budget", tmplmanager.Budget)
+	http.HandleFunc("/summary", router.Summary)
+	http.HandleFunc("/deposits", router.Deposits)
+	http.HandleFunc("/withdrawals", router.Withdrawals)
+	http.HandleFunc("/graphs", router.Graphs)
+	http.HandleFunc("/budget", router.Budget)
 
 	// data
 	http.HandleFunc("/data", bankapi.GetData)

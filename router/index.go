@@ -1,4 +1,4 @@
-package tmplmanager
+package router
 
 import (
 	"html/template"

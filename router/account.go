@@ -1,4 +1,4 @@
-package tmplmanager
+package router
 
 import (
 	"bankmanager/types"
@@ -93,7 +93,7 @@ func Graphs(w http.ResponseWriter, r *http.Request) {
 
 	// statementPath := "data/json/" + year + "/" + id + ".json"
 	statementPath := "data/json/2018/20180104.json"
-	fmt.Println("GETTING: ", statementPath)
+	// fmt.Println("GETTING: ", statementPath)
 
 	// get json data
 	file, err := os.Open(statementPath)
