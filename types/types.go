@@ -1,13 +1,14 @@
 package types
 
 type Summary struct {
-	Beginning  string
-	Ending     string
-	Deposits   string
-	Checks     string
-	Debit      string
-	Electronic string
-	Fees       string
+	Beginning   string
+	Ending      string
+	Deposits    string
+	Withdrawals string
+	Debit       string
+	Electronic  string
+	Checks      string
+	Fees        string
 }
 
 type Deposit struct {
@@ -34,3 +35,5 @@ type BankJson struct {
 	Withdrawals []Withdrawal
 	Checks      []Check
 }
+
+type PurchaseType string

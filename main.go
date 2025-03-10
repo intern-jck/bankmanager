@@ -1,11 +1,11 @@
 package main
 
 import (
+	"bankmanager/bankapi"
+	"bankmanager/faker"
+	"bankmanager/router"
 	"fmt"
 	"net/http"
-
-	"bankmanager/bankapi"
-	"bankmanager/router"
 )
 
 func main() {
@@ -36,5 +36,7 @@ func main() {
 	// server
 	fmt.Println("Server @ http://localhost:8080/")
 	http.ListenAndServe(":8080", nil)
+
+	faker.CreateStatement(2018, 01, 01)
 
 }
