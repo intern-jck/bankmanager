@@ -1,43 +1,44 @@
 <div class="summary">
-  <div class="summary-header">
-    <h3>Account Summary</h3>
+    <div class="summary-header">
+        <h3>Account Summary</h3>
+        <div class="date-selector">
+            <form
+                id="date-selector"
+                hx-post="/summary-graph"
+                hx-target="#summary-content"
+                hx-swap="innerHTML"
+                hx-trigger="change, change from:[form='date-selector']"
+            >
+                <label for="account-year">Year</label>
+                <select id="account-year" name="account-year" hx-trigger="change">
+                    <option value="2018">2018</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                </select>
 
-    <div class="date-selector">
-      <form id="date-selector" hx-post="/summary-graph" hx-target="#summary-content" hx-swap="innerHTML"
-        hx-trigger="change, change from:[form='date-selector']">
-        <label for="account-year">Year</label>
-        <select id="account-year" name="account-year" hx-trigger="change">
-          <option value="2018">2018</option>
-          <option value="2019">2019</option>
-          <option value="2020">2020</option>
-          <option value="2021">2021</option>
-          <option value="2022">2022</option>
-          <option value="2023">2023</option>
-          <option value="2024">2024</option>
-          <option value="2025">2025</option>
-        </select>
-        <label for="account-month">Month</label>
-
-        <select id="account-month" name="account-month">
-          <option value="01">1</option>
-          <option value="02">2</option>
-          <option value="03">3</option>
-          <option value="04">4</option>
-          <option value="05">5</option>
-          <option value="06">6</option>
-          <option value="07">7</option>
-          <option value="08">8</option>
-          <option value="09">9</option>
-          <option value="10">10</option>
-          <option value="11">11</option>
-          <option value="12">12</option>
-        </select>
-      </form>
+                <label for="account-month">Month</label>
+                <select id="account-month" name="account-month">
+                    <option value="01">1</option>
+                    <option value="02">2</option>
+                    <option value="03">3</option>
+                    <option value="04">4</option>
+                    <option value="05">5</option>
+                    <option value="06">6</option>
+                    <option value="07">7</option>
+                    <option value="08">8</option>
+                    <option value="09">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+            </form>
+        </div>
     </div>
-  </div>
 
-  <div id="summary-content" class="summary-content">
-    {{ template "summary-graph" . }}
-  </div>
-
+    <div id="summary-content" class="summary-content">{{ template "summary-graph" . }}</div>
 </div>

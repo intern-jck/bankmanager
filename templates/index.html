@@ -1,38 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Bank Manager</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Bank Manager</title>
+        <script
+            src="https://unpkg.com/htmx.org@2.0.4"
+            integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
+            crossorigin="anonymous"
+        ></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <script src="https://unpkg.com/htmx.org@2.0.4"
-    integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <link rel="stylesheet" type="text/css" href="public/styles.css" />
+        <script src="public/script.js"></script>
+        <script src="public/graphs.js"></script>
+    </head>
 
-  <link rel="stylesheet" type="text/css" href="public/styles.css" />
-  <script src="public/script.js"></script>
-  <script src="public/graphs.js"></script>
+    <body>
+        <nav class="container navbar">
+            <div class="nav-home">Bank Manager</div>
+        </nav>
 
-</head>
+        <div id="app" class="container app">
+            <div class="app-dashboard">
+                <button hx-get="/summary" hx-trigger="load, click" hx-target="#app-content" hx-swap="innterHTML">
+                    Summary
+                </button>
+                <button hx-get="/deposits" hx-target="#app-content" hx-swap="innterHTML">Deposits</button>
+                <button hx-get="/withdrawals" hx-target="#app-content" hx-swap="innterHTML">Withdrawals</button>
+                <!-- <button hx-get="/graphs" hx-target="#app-content" hx-swap="innterHTML">Graphs</button> -->
+                <!-- <button hx-get="/budget" hx-target="#app-content" hx-swap="innterHTML">Budget</button> -->
+            </div>
 
-<body>
-  <nav>
-    <div class="nav-header">Bank Manager</div>    
-    <div class="nav-menu">
-      <button hx-get="/account" hx-trigger="load, click" hx-target="#app" hx-swap="innerHTML">
-        Account
-      </button>
-      <button hx-get="/settings" hx-target="#app" hx-swap="innerHTML">
-        Settings
-      </button>
-    </div>
-  </nav>
-
-  <div id="app" class="app">    
-  </div>
-</body>
-
+            <div id="app-content" class="app-content"></div>
+        </div>
+    </body>
 </html>

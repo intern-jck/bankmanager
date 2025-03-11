@@ -1,8 +1,6 @@
 package main
 
 import (
-	"bankmanager/bankapi"
-	"bankmanager/faker"
 	"bankmanager/router"
 	"fmt"
 	"net/http"
@@ -16,23 +14,22 @@ func main() {
 	// home page
 	http.HandleFunc("/", router.Index)
 
-	// page elements
-	http.HandleFunc("/account", router.Account)
-	http.HandleFunc("/settings", router.Settings)
-
-	// account elements
+	// account details
 	http.HandleFunc("/summary", router.Summary)
 	http.HandleFunc("/deposits", router.Deposits)
 	http.HandleFunc("/withdrawals", router.Withdrawals)
-	http.HandleFunc("/graphs", router.Graphs)
-	http.HandleFunc("/budget", router.Budget)
 
+	// page elements
+	// http.HandleFunc("/account", router.Account)
+	// http.HandleFunc("/settings", router.Settings)
+	// http.HandleFunc("/graphs", router.Graphs)
+	// http.HandleFunc("/budget", router.Budget)
 	// data
-	http.HandleFunc("/data", bankapi.GetData)
+	// http.HandleFunc("/data", bankapi.GetData)
 
 	// server
 	fmt.Println("Server @ http://localhost:8080/")
 	http.ListenAndServe(":8080", nil)
 
-	faker.CreateStatement(2018, 01, 01)
+	// faker.CreateStatement(2018, 01, 01)
 }
