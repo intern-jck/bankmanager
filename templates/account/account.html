@@ -1,6 +1,6 @@
 <div class="account">
   <div class="account-dashboard">
-    <button hx-get="/summary" hx-target="#account-content" hx-swap="innterHTML">
+    <button hx-get="/summary" hx-trigger="load, click" hx-target="#account-content" hx-swap="innterHTML">
       Summary
     </button>
     <button

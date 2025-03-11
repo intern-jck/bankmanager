@@ -1,15 +1,10 @@
 let currentStatement = {};
 
 window.onload = () => {
-  console.log("JavaScript loaded!");
   currentStatement = {};
 };
 
-function test() {
-  console.log("button pressed");
-}
-
-let data = {}
+let data = {};
 function createGraphs(data) {
   // Create summary graph
   const summaryBeginning = data.Summary.Beginning;

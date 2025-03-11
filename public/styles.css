@@ -5,23 +5,21 @@
 }
 
 html {
-  font-size: 100%;
-  font-family: monospace;
-}
-
-body {
-  border: 4px solid purple;
-  margin: auto;
-  margin-top: 1rem;
   box-sizing: border-box;
-  width: 1280px;
-  height: 100vh;
 }
-
 *,
 *:before,
 *:after {
   box-sizing: inherit;
+}
+
+body {
+  margin: auto;
+  margin-top: 1rem;
+  width: 100%;
+  height: 100vh;
+  font-size: 100%;
+  font-family: monospace;
 }
 
 button {
@@ -37,34 +35,20 @@ button:hover {
 
 nav {
   border: 4px solid black;
-  height: 6rem;
-  margin: 1rem;
-  text-align: center;
+  padding: 0.6rem;
   font-size: 2rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
-
-.nav-header {
-  margin-left: 2rem;
-}
-
-.nav-menu {
-  margin-right: 2rem;
-  text-align: center;
-}
-
 .nav-menu button {
   font-size: 2rem;
   padding-left: 1rem;
   padding-right: 1rem;
 }
 
-#app {
-  /* border: 4px solid black; */
-  /* margin: 1rem; */
-  /* min-height: 30rem; */
+.app {
+  border: 4px solid black;
 }
 
 .account {
@@ -75,8 +59,7 @@ nav {
 
 .account-dashboard {
   border: 2px solid black;
-  width: 20rem;
-  /* height: 60rem; */
+  /* width: 20rem; */
   margin: 1rem;
   padding: 1rem;
   display: flex;
@@ -90,7 +73,6 @@ nav {
 
 .account-content {
   border: 2px solid black;
-  height: 60rem;
   margin: 1rem;
   padding: 1rem;
   flex-grow: 1;
@@ -114,7 +96,7 @@ nav {
   background-color: white;
   font-size: 1.6rem;
   font-family: "Courier New", Courier, monospace;
-  width: 8rem;
+  /* width: 8rem; */
   height: 2rem;
 }
 
@@ -131,8 +113,7 @@ nav {
 }
 
 .summary-graph {
-  border: 2px solid blue;
-  margin: 1rem;
-  height: 30rem;
-  width: 50rem;
+  border: 2px solid red;
+  height: 16rem;
+  /* width: 32rem; */
 }

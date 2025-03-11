@@ -10,8 +10,6 @@ import (
 
 func main() {
 
-	fmt.Println("bank manager")
-
 	// styles and javascript
 	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
 
@@ -24,7 +22,6 @@ func main() {
 
 	// account elements
 	http.HandleFunc("/summary", router.Summary)
-	http.HandleFunc("/summary-graph", router.SummaryGraph)
 	http.HandleFunc("/deposits", router.Deposits)
 	http.HandleFunc("/withdrawals", router.Withdrawals)
 	http.HandleFunc("/graphs", router.Graphs)
@@ -38,5 +35,4 @@ func main() {
 	http.ListenAndServe(":8080", nil)
 
 	faker.CreateStatement(2018, 01, 01)
-
 }
