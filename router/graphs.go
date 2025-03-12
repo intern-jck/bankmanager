@@ -6,123 +6,61 @@ import (
 	"html/template"
 	"net/http"
 	"os"
-	"path/filepath"
 	"strconv"
 
 	"bankmanager/types"
 )
 
 func Graphs(w http.ResponseWriter, r *http.Request) {
-
-	// id := r.PathValue("id")
-	// fmt.Printf("ID: %v\n", id)
-
-	// year := id[:4]
-
-	// statementPath := "data/json/" + year + "/" + id + ".json"
-	statementPath := "data/json/2018/20180104.json"
-	// fmt.Println("GETTING: ", statementPath)
-
-	// get json data
-	file, err := os.Open(statementPath)
-	if err != nil {
-		fmt.Println("json open error", err)
-		http.Error(w, fmt.Sprintf("Error opening data: %v", err), http.StatusInternalServerError)
-	}
-	defer file.Close()
-
-	// Create bank data struct
-	bankData := types.BankJson{}
-	decoder := json.NewDecoder(file)
-	err = decoder.Decode(&bankData)
-	if err != nil {
-		http.Error(w, "json data error: "+err.Error(), http.StatusInternalServerError)
-	}
-
-	tmpl := template.Must(template.ParseFiles("templates/account/graphs.html"))
-
-	// Format bank data struct to pass to template
-	// jsonData, _ := json.Marshal(bankData)
-	// fmt.Println(string(jsonData))
-
-	// Create test data
-	testData := types.TestJson{
-		ID:     "bar-graph",
-		Data:   []int{1, 2, 3, 4, 5},
-		Title:  "Test Bar Graph",
-		Labels: []string{"one", "two", "three", "four", "five"},
-	}
-
-	jsonData, _ := json.Marshal(testData)
-
-	// Serve template with formatted data
-	err = tmpl.Execute(w, string(jsonData))
-	// err := tmpl.Execute(w, nil)
-
-	if err != nil {
-		http.Error(w, "template error: "+err.Error(), http.StatusInternalServerError)
-	}
-}
-
-func SummaryGraph(w http.ResponseWriter, r *http.Request) {
-
+	fmt.Println("getting graphs")
+	// get the form data
 	err := r.ParseForm()
 	if err != nil {
 		http.Error(w, "Error parsing form data", http.StatusBadRequest)
 		return
 	}
 
-	year := r.FormValue("account-year")
-	month := r.FormValue("account-month")
+	// get the statement
+	statementDate := fmt.Sprintf("%s%s01", r.Form.Get("account-year"), r.Form.Get("account-month"))
+	statementPath := fmt.Sprintf("data/test/%s.json", statementDate)
 
-	statementPath := ""
+	// get the graph type
+	graphType := r.Form.Get("date-select-id")
 
-	if year != "" && month != "" {
-		// get the file
-		pattern := "data/json/" + year + "/" + year + month + "*.json"
-
-		matches, err := filepath.Glob(pattern)
-		if err != nil {
-			fmt.Println("Error:", err)
-		}
-
-		if len(matches) == 0 {
-			fmt.Println("No matching files found.")
-		}
-
-		for _, match := range matches {
-			file, err := os.Open(match)
-			if err != nil {
-				fmt.Println("Error opening file:", err)
-				continue
-			}
-			defer file.Close()
-
-			statementPath = match
-		}
-
-	} else {
-		statementPath = "data/json/2018/20180104.json"
+	// get the graph
+	switch graphType {
+	case "summary":
+		summaryGraph(statementPath, w, r)
+	case "deposits":
+	case "withdrawals":
+	default:
+		http.Error(w, "template error: "+err.Error(), http.StatusInternalServerError)
 	}
+}
 
-	// get json data
-	file, err := os.Open(statementPath)
+func summaryGraph(s string, w http.ResponseWriter, r *http.Request) {
+
+	fmt.Println("statement: ", s)
+
+	// get json from path
+	file, err := os.Open(s)
 	if err != nil {
-		fmt.Println("json open error", err)
-		http.Error(w, fmt.Sprintf("Error opening data: %v", err), http.StatusInternalServerError)
+		http.Error(w, "Statement not found: "+err.Error(), http.StatusInternalServerError)
 	}
 	defer file.Close()
 
+	// get the summary graph
 	tmpl := template.Must(template.ParseFiles("templates/graphs/summary-graph.html"))
 
-	// Create bank data struct
+	// parse json file into struct
 	bankData := types.BankJson{}
 	decoder := json.NewDecoder(file)
 	err = decoder.Decode(&bankData)
 	if err != nil {
-		http.Error(w, "json data error: "+err.Error(), http.StatusInternalServerError)
+		http.Error(w, "Cannot read statment: "+err.Error(), http.StatusInternalServerError)
 	}
 
+	// create data set for graph
 	beginning, _ := strconv.ParseFloat(bankData.Summary.Beginning, 64)
 	ending, _ := strconv.ParseFloat(bankData.Summary.Ending, 64)
 	deposits, _ := strconv.ParseFloat(bankData.Summary.Deposits, 64)
@@ -136,88 +74,10 @@ func SummaryGraph(w http.ResponseWriter, r *http.Request) {
 	}
 	jsonData, _ := json.Marshal(graphData)
 
+	// pass data to graph html and return
 	err = tmpl.ExecuteTemplate(w, "summary-graph", string(jsonData))
 
 	if err != nil {
-		http.Error(w, "template error: "+err.Error(), http.StatusInternalServerError)
-	}
-}
-
-func DepositsGraph(w http.ResponseWriter, r *http.Request) {
-
-	err := r.ParseForm()
-	if err != nil {
-		http.Error(w, "Error parsing form data", http.StatusBadRequest)
-		return
-	}
-
-	year := r.FormValue("account-year")
-	month := r.FormValue("account-month")
-
-	statementPath := ""
-
-	if year != "" && month != "" {
-		// get the file
-		pattern := "data/json/" + year + "/" + year + month + "*.json"
-
-		matches, err := filepath.Glob(pattern)
-		if err != nil {
-			fmt.Println("Error:", err)
-		}
-
-		if len(matches) == 0 {
-			fmt.Println("No matching files found.")
-		}
-
-		for _, match := range matches {
-			file, err := os.Open(match)
-			if err != nil {
-				fmt.Println("Error opening file:", err)
-				continue
-			}
-			defer file.Close()
-
-			statementPath = match
-		}
-
-	} else {
-		statementPath = "data/json/2018/20180104.json"
-	}
-
-	// get json data
-	file, err := os.Open(statementPath)
-	if err != nil {
-		fmt.Println("json open error", err)
-		http.Error(w, fmt.Sprintf("Error opening data: %v", err), http.StatusInternalServerError)
-	}
-	defer file.Close()
-
-	tmpl := template.Must(template.ParseFiles("templates/graphs/summary-graph.html"))
-
-	// Create bank data struct
-	bankData := types.BankJson{}
-	decoder := json.NewDecoder(file)
-	err = decoder.Decode(&bankData)
-	if err != nil {
-		http.Error(w, "json data error: "+err.Error(), http.StatusInternalServerError)
-	}
-
-	beginning, _ := strconv.ParseFloat(bankData.Summary.Beginning, 64)
-	ending, _ := strconv.ParseFloat(bankData.Summary.Ending, 64)
-	deposits, _ := strconv.ParseFloat(bankData.Summary.Deposits, 64)
-	withdrawals, _ := strconv.ParseFloat(bankData.Summary.Withdrawals, 64)
-
-	graphData := types.GraphJson{
-		ID:     "summary-graph",
-		Data:   []float64{beginning, ending, deposits, withdrawals},
-		Title:  "Summary",
-		Labels: []string{"Beginning", "Ending", "Deposits", "Withdrawals"},
-	}
-	jsonData, _ := json.Marshal(graphData)
-
-	err = tmpl.ExecuteTemplate(w, "summary-graph", string(jsonData))
-
-	if err != nil {
-		http.Error(w, "template error: "+err.Error(), http.StatusInternalServerError)
+		http.Error(w, "Template error: "+err.Error(), http.StatusInternalServerError)
 	}
 }

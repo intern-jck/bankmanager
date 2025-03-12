@@ -3,12 +3,13 @@
         <p>Account Summary</p>
         <div class="date-selector">
             <form
-                id="date-selector"
-                hx-post="/summary"
+                id="summary-date-selector"
+                hx-post="/graphs"
                 hx-target="#summary-content"
                 hx-swap="innerHTML"
                 hx-trigger="change, change from:[form='date-selector']"
             >
+                <input type="hidden" name="date-select-id" value="summary" />
                 <label for="account-year">Year</label>
                 <select id="account-year" name="account-year" hx-trigger="change">
                     <option value="2018">2018</option>
@@ -40,5 +41,5 @@
         </div>
     </div>
 
-    <div id="summary-content" class="summary-content">{{ template "summary-graph" . }}</div>
+    <div id="summary-content" class="summary-content"></div>
 </div>

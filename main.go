@@ -9,7 +9,9 @@ import (
 func main() {
 
 	// styles and javascript
-	http.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("public"))))
+	http.Handle("/public/",
+		http.StripPrefix("/public/",
+			http.FileServer(http.Dir("public"))))
 
 	// home page
 	http.HandleFunc("/", router.Index)
