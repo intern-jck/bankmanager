@@ -36,19 +36,13 @@
     </div>
 </div>
 <script>
-    // data = JSON.parse(`{{ . }}`);
-    // console.log(data);
-    // createBarGraph(data.ID, data.Data, data.Title, data.Labels, {});
-
     const submitForm = () => {
         event.preventDefault();
-        // console.log("submit form");
 
         const form = document.getElementById("summary-date-selector");
-        // console.log("form", form);
 
         const formData = new FormData(form);
-        // console.log(formData);
+
         const data = {
             "year": formData.get("account-year"),
             "month": formData.get("account-month"),
@@ -62,7 +56,6 @@
         })
             .then((res) => res.json())
             .then((data) => {
-                console.log(data)
                 createBarGraph(data.ID, data.Data, data.Title, data.Labels, {});
             })
             .catch((err) => console.log("graph error: ", err));
