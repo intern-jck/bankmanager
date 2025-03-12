@@ -36,6 +36,7 @@
     </div>
 </div>
 <script>
+
     const submitForm = () => {
         event.preventDefault();
 
@@ -47,6 +48,7 @@
             "year": formData.get("account-year"),
             "month": formData.get("account-month"),
         };
+        
         fetch("/graphs", {
             method: "POST",
             headers: {
@@ -60,4 +62,9 @@
             })
             .catch((err) => console.log("graph error: ", err));
     };
+
+    window.onload = () => {
+        submitForm();
+    }
+    
 </script>
