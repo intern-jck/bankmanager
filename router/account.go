@@ -45,6 +45,8 @@ func Summary(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	fmt.Println("form: ", r.Form)
+
 	// default path
 	// statementPath := "data/json/2018/20180104.json"
 	// use fake data
