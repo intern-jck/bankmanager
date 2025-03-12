@@ -12,7 +12,7 @@
             crossorigin="anonymous"
         ></script>
 
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.js"></script> -->
+        <script src=" https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js " defer></script>
 
         <link rel="stylesheet" type="text/css" href="public/styles.css" />
         <script src="public/graphs.js"></script>
@@ -35,15 +35,13 @@
             <div class="container">
                 <div id="app" class="app">
                     <div class="app-dashboard">
-                        <button hx-get="/summary" hx-target="#app-content" hx-swap="innterHTML">Summary</button>
-                        <!-- <button hx-get="/deposits" hx-target="#app-content" hx-swap="innterHTML">Deposits</button> -->
-                        <!-- <button hx-get="/withdrawals" hx-target="#app-content" hx-swap="innterHTML">Withdrawals</button> -->
+                        <button hx-get="/summary" hx-trigger="load, click" hx-target="#app-content" hx-swap="innterHTML">
+                            Summary
+                        </button>
                     </div>
                     <div id="app-content" class="app-content"></div>
                 </div>
             </div>
         </main>
-
-        <script src=" https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js "></script>
     </body>
 </html>

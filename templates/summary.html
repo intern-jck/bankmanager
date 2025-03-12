@@ -2,29 +2,17 @@
     <div class="summary-header">
         <p>Account Summary</p>
         <div class="date-selector">
-            <form
-                id="summary-date-selector"
-                hx-post="/graphs"
-                hx-target="#summary-content"
-                hx-swap="innerHTML"
-                hx-trigger="change, change from:[form='date-selector']"
-            >
+            <form id="summary-date-selector">
                 <input type="hidden" name="date-select-id" value="summary" />
+
                 <label for="account-year">Year</label>
-                <select id="account-year" name="account-year" hx-trigger="change">
-                    <option value="2018">2018</option>
-                    <option value="2019">2019</option>
-                    <option value="2020">2020</option>
-                    <option value="2021">2021</option>
-                    <option value="2022">2022</option>
-                    <option value="2023">2023</option>
-                    <option value="2024">2024</option>
-                    <option value="2025">2025</option>
+                <select id="account-year" name="account-year" onchange="submitForm()">
+                    <option value="2018" selected>2018</option>
                 </select>
 
                 <label for="account-month">Month</label>
-                <select id="account-month" name="account-month">
-                    <option value="01">1</option>
+                <select id="account-month" name="account-month" onchange="submitForm()">
+                    <option value="01" selected>1</option>
                     <option value="02">2</option>
                     <option value="03">3</option>
                     <option value="04">4</option>
@@ -41,5 +29,42 @@
         </div>
     </div>
 
-    <div id="summary-content" class="summary-content"></div>
+    <div id="summary-content" class="summary-content">
+        <div class="graph-container">
+            <canvas id="summary-graph" class="summary-graph"></canvas>
+        </div>
+    </div>
 </div>
+<script>
+    // data = JSON.parse(`{{ . }}`);
+    // console.log(data);
+    // createBarGraph(data.ID, data.Data, data.Title, data.Labels, {});
+
+    const submitForm = () => {
+        event.preventDefault();
+        // console.log("submit form");
+
+        const form = document.getElementById("summary-date-selector");
+        // console.log("form", form);
+
+        const formData = new FormData(form);
+        // console.log(formData);
+        const data = {
+            "year": formData.get("account-year"),
+            "month": formData.get("account-month"),
+        };
+        fetch("/graphs", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                console.log(data)
+                createBarGraph(data.ID, data.Data, data.Title, data.Labels, {});
+            })
+            .catch((err) => console.log("graph error: ", err));
+    };
+</script>

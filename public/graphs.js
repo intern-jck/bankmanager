@@ -1,3 +1,5 @@
+let summaryChart;
+
 const createBarGraph = (id, data, title, labels, options) => {
     const barCtx = document.getElementById(id).getContext("2d");
 
@@ -14,13 +16,15 @@ const createBarGraph = (id, data, title, labels, options) => {
         ],
     };
 
-    const summaryChart = new Chart(barCtx, {
+
+    if (summaryChart) {
+        summaryChart.destroy()
+    };
+
+    summaryChart = new Chart(barCtx, {
         type: "bar",
         data: barGraphData,
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-        },
+        options: options
     });
 };
 
