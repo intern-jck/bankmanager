@@ -50,8 +50,7 @@ type Statement struct {
 	Data types.BankJson
 }
 
-func CreateStatement(year int, month int, day int) {
-
+func CreateStatement(year int, month int) {
 	statement := types.BankJson{}
 
 	beginning := 5000.00
@@ -92,7 +91,6 @@ func CreateStatement(year int, month int, day int) {
 			w = 1500.00
 			description = recurringCardPurchase + "\t" + date + " Landlord LLC Card " + cardLastFour
 			addWithdrawal = true
-
 		}
 
 		// Cellphone
@@ -100,7 +98,6 @@ func CreateStatement(year int, month int, day int) {
 			w = 100.00
 			description = cardPurchase + "\t" + date + " Cellphone Company USA Card " + cardLastFour
 			addWithdrawal = true
-
 		}
 
 		// Spotify
@@ -108,7 +105,6 @@ func CreateStatement(year int, month int, day int) {
 			w = 9.99
 			description = recurringCardPurchase + "\t" + date + " Spotify USA Card " + cardLastFour
 			addWithdrawal = true
-
 		}
 
 		// Netflix
@@ -116,7 +112,6 @@ func CreateStatement(year int, month int, day int) {
 			w = 7.99
 			description = cardPurchase + "\t" + date + " Netflix.Com Netflix.Com CA Card " + cardLastFour
 			addWithdrawal = true
-
 		}
 
 		// Restaurants
@@ -124,14 +119,12 @@ func CreateStatement(year int, month int, day int) {
 			w = 20.0 + rand.Float64()*(30.0)
 			description = cardPurchase + "\t" + date + " Dive Bar Restaurant LLC Card " + cardLastFour
 			addWithdrawal = true
-
 		}
 
 		if day%30 == 0 {
 			w = 60.0 + rand.Float64()*(20.0)
 			description = cardPurchase + "\t" + date + " Gourmet Restaurant LLC Card " + cardLastFour
 			addWithdrawal = true
-
 		}
 
 		// Convert amount to string and create purchase
@@ -172,7 +165,7 @@ func CreateStatement(year int, month int, day int) {
 	fmt.Println(statement)
 
 	// Now create json of statement
-	jsonPath := fmt.Sprintf("./faker/fakedata/%d%s%s.json", year, formatIntToString(month), formatIntToString(day))
+	jsonPath := fmt.Sprintf("./faker/fakedata/%d%s%s.json", year, formatIntToString(month), formatIntToString(1))
 	jsonFile, err := os.Create(jsonPath)
 	if err != nil {
 		panic(err)
@@ -183,7 +176,6 @@ func CreateStatement(year int, month int, day int) {
 	encoder := json.NewEncoder(jsonFile)
 	encoder.SetIndent("", "  ")
 	encoder.Encode(statement)
-
 }
 
 func createDeposit(date string, amount string, desc string) (types.Deposit, error) {

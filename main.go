@@ -20,16 +20,15 @@ func main() {
 	http.HandleFunc("/withdrawals", router.Withdrawals)
 
 	// page elements
-	// http.HandleFunc("/account", router.Account)
-	// http.HandleFunc("/settings", router.Settings)
-	// http.HandleFunc("/graphs", router.Graphs)
-	// http.HandleFunc("/budget", router.Budget)
-	// data
-	// http.HandleFunc("/data", bankapi.GetData)
+	http.HandleFunc("/graphs", router.Graphs)
 
 	// server
 	fmt.Println("Server @ http://localhost:8080/")
 	http.ListenAndServe(":8080", nil)
 
-	// faker.CreateStatement(2018, 01, 01)
+	// Make fake data tot test
+	// faker.CreateStatement(2018, 01)
+	// faker.CreateStatement(2018, 02)
+	// faker.CreateStatement(2018, 03)
+	// faker.CreateStatement(2018, 04)
 }

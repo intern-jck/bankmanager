@@ -5,10 +5,6 @@ type Summary struct {
 	Ending      string
 	Deposits    string
 	Withdrawals string
-	Debit       string
-	Electronic  string
-	Checks      string
-	Fees        string
 }
 
 type Deposit struct {
@@ -37,3 +33,17 @@ type BankJson struct {
 }
 
 type PurchaseType string
+
+type TestJson struct {
+	ID     string
+	Data   []int
+	Title  string
+	Labels []string
+}
+
+type GraphJson struct {
+	ID     string
+	Data   []float64
+	Title  string
+	Labels []string
+}
