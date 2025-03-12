@@ -1,0 +1,70 @@
+<div class="summary">
+    <div class="summary-header">
+        <p>Account Summary</p>
+        <div class="date-selector">
+            <form id="summary-date-selector">
+                <input type="hidden" name="date-select-id" value="summary" />
+
+                <label for="account-year">Year</label>
+                <select id="account-year" name="account-year" onchange="submitForm()">
+                    <option value="2018" selected>2018</option>
+                </select>
+
+                <label for="account-month">Month</label>
+                <select id="account-month" name="account-month" onchange="submitForm()">
+                    <option value="01" selected>1</option>
+                    <option value="02">2</option>
+                    <option value="03">3</option>
+                    <option value="04">4</option>
+                    <option value="05">5</option>
+                    <option value="06">6</option>
+                    <option value="07">7</option>
+                    <option value="08">8</option>
+                    <option value="09">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+            </form>
+        </div>
+    </div>
+
+    <div id="summary-content" class="summary-content">
+        <div class="graph-container">
+            <canvas id="summary-graph" class="summary-graph"></canvas>
+        </div>
+    </div>
+</div>
+<script>
+
+    const submitForm = () => {
+        event.preventDefault();
+
+        const form = document.getElementById("summary-date-selector");
+
+        const formData = new FormData(form);
+
+        const data = {
+            "year": formData.get("account-year"),
+            "month": formData.get("account-month"),
+        };
+        
+        fetch("/graphs", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                createBarGraph(data.ID, data.Data, data.Title, data.Labels, {});
+            })
+            .catch((err) => console.log("graph error: ", err));
+    };
+
+    window.onload = () => {
+        submitForm();
+    }
+    
+</script>

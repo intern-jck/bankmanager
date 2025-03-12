@@ -1,36 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Bank Manager</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Bank Manager</title>
+        <script
+            src="https://unpkg.com/htmx.org@2.0.4"
+            integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
+            crossorigin="anonymous"
+        ></script>
 
-  <script src="https://unpkg.com/htmx.org@2.0.4"
-    integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src=" https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js " defer></script>
 
-  <link rel="stylesheet" type="text/css" href="public/styles.css" />
-  <script src="public/script.js"></script>
-</head>
+        <link rel="stylesheet" type="text/css" href="public/styles.css" />
+        <script src="public/graphs.js"></script>
+    </head>
 
-<body>
-  <nav>
-    <div class="nav-header">Bank Manager</div>
-    <div class="nav-menu">
-      <button hx-get="/account" hx-target="#app" hx-swap="innerHTML">
-        Account
-      </button>
-      <button hx-get="/settings" hx-target="#app" hx-swap="innerHTML">
-        Settings
-      </button>
-    </div>
-  </nav>
+    <body>
+        <header>
+            <div class="primary-header">
+                <div class="container">
+                    <nav id="navbar" class="navbar">
+                        <div class="nav-home">
+                            <a href="/">Bank Manager</a>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </header>
 
-  <div id="app">
-  </div>
-</body>
-
+        <main>
+            <div class="container">
+                <div id="app" class="app">
+                    <div class="app-dashboard">
+                        <button hx-get="/summary" hx-trigger="load, click" hx-target="#app-content" hx-swap="innterHTML">
+                            Summary
+                        </button>
+                    </div>
+                    <div id="app-content" class="app-content"></div>
+                </div>
+            </div>
+        </main>
+    </body>
 </html>

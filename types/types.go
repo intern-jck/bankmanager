@@ -1,13 +1,10 @@
 package types
 
 type Summary struct {
-	Beginning  string
-	Ending     string
-	Deposits   string
-	Checks     string
-	Debit      string
-	Electronic string
-	Fees       string
+	Beginning   string
+	Ending      string
+	Deposits    string
+	Withdrawals string
 }
 
 type Deposit struct {
@@ -33,4 +30,20 @@ type BankJson struct {
 	Deposits    []Deposit
 	Withdrawals []Withdrawal
 	Checks      []Check
+}
+
+type PurchaseType string
+
+type TestJson struct {
+	ID     string
+	Data   []int
+	Title  string
+	Labels []string
+}
+
+type GraphJson struct {
+	ID     string
+	Data   []float64
+	Title  string
+	Labels []string
 }

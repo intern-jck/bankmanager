@@ -1,97 +1,182 @@
 :root {
-  --active-color: green;
-  --button-background: white;
-  --app-background-color: white;
+    --anchor-color: blue;
+    --background-color: white;
+    --primary-color: darkblue;
+    --secondary-color: darkgreen;
+    --active-color: darkorange;
+    --icon-color: black;
+
+    --font-family: Courier;
+    --font-color: black;
+    --font-size-5: 2rem;
+    --font-size-4: 1.4rem;
+    --font-size-3: 1rem;
+    --font-size-2: 0.8rem;
+    --font-size-1: 0.4rem;
 }
 
-html {
-  font-size: 100%;
-  font-family: monospace;
+/* Set some default styles to make things easier later on */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    /* use to frame elements to help to debug styles */
+    /* border: 1px solid orange; */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: inherit;
+}
+
+html:focus-within {
+    scroll-behavior: smooth;
+}
+
+html,
+body {
+    height: 100%;
+    font-family: var(--font-family);
 }
 
 body {
-  border: 4px solid black;
-  margin: auto;
-  margin-top: 1rem;
-  box-sizing: border-box;
-  width: 1280px;
-  height: 1024px;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
 }
 
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
-}
-
-button {
-  border: 2px solid black;
-  background-color: rgb(255, 255, 255);
-  font-family: monospace;
+button > svg {
+    pointer-events: none;
 }
 
 button:hover {
-  background-color: green;
-  cursor: pointer;
+    cursor: pointer;
+    color: var(--active-color);
 }
 
-nav {
-  border: 4px solid black;
-  height: 6rem;
-  margin: 1rem;
-  text-align: center;
-  font-size: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+a {
+    color: var(--font-color);
+    text-decoration: none;
 }
 
-.nav-header {
-  margin-left: 2rem;
+a:hover {
+    color: var(--active-color);
 }
 
-.nav-menu {
-  margin-right: 2rem;
-  text-align: center;
+ul,
+ol {
+    list-style: none;
 }
 
-.nav-menu button {
-  font-size: 2rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
+main {
+    padding-top: 2rem;
 }
 
-#app {
-  /* border: 4px solid black; */
-  /* margin: 1rem; */
-  /* min-height: 30rem; */
+section {
+    padding: 4rem;
 }
 
-.account {
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
+/* Default Classes */
+.container {
+    --max-width: 80rem;
+    --container-padding: 1rem;
+
+    width: min(var(--max-width), 100% - (var(--container-padding) * 2));
+    margin-inline: auto;
 }
 
-.account-dashboard {
-  border: 2px solid black;
-  width: 20rem;
-  /* height: 60rem; */
-  margin: 1rem;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+@media (max-width: 50rem) {
+    section {
+        padding: 0;
+    }
 }
 
-.account-dashboard button {
-  font-size: 2rem;
+/* Componets and Pages */
+
+/* Navbar */
+.navbar {
+    border: 2px solid black;
+    font-size: 2rem;
+    padding-left: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.account-content {
-  border: 2px solid black;
-  height: 60rem;
-  margin: 1rem;
-  padding: 1rem;
-  flex-grow: 1;
+/* App */
+.app {
+    height: 80vh;
+    padding: 0.4rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.app-dashboard {
+    border: 2px solid grey;
+    padding: 1rem;
+    width: 16rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.app-dashboard > button {
+    border: 2px solid black;
+    background-color: white;
+    width: 100%;
+    padding-left: 1rem;
+    font-size: var(--font-size-4);
+    text-align: start;
+}
+
+.app-content {
+    border: 2px solid grey;
+    padding: 01rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+/* App Content */
+
+/* Summary */
+
+.summary {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    flex-grow: 1;
+}
+
+.summary-header {
+    font-size: var(--font-size-4);
+    display: flex;
+    justify-content: space-between;
+}
+
+.date-selector select {
+    border: 2px solid black;
+    background-color: white;
+    font-size: var(--font-size-4);
+    padding-left: 1rem;
+}
+
+.date-selector label {
+    font-size: var(--font-size-4);
+}
+
+.summary-content {
+    padding: 1rem;
+}
+
+.graph-container {
+    border: 2px solid black;
+    width: 40rem;
+    padding: 1rem;
+}
+
+.summary-graph {
+    height: 100%;
+    width: 100%;
 }

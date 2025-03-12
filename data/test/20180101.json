@@ -1,0 +1,53 @@
+{
+  "Summary": {
+    "Beginning": "5000.00",
+    "Ending": "4442.27",
+    "Deposits": "2525.45",
+    "Withdrawals": "3083.18"
+  },
+  "Deposits": [
+    {
+      "Date": "02/20",
+      "Amount": "2500.00",
+      "Description": "Job LLC"
+    },
+    {
+      "Date": "02/22",
+      "Amount": "25.45",
+      "Description": "Venmo\tCashout\tPPD ID: 1234567890"
+    }
+  ],
+  "Withdrawals": [
+    {
+      "Date": "02/01",
+      "Amount": "1500.00",
+      "Description": "Recurring Card Purchase\t02/01 Landlord LLC Card 1234"
+    },
+    {
+      "Date": "02/12",
+      "Amount": "39.34",
+      "Description": "Card Purchase\t02/12 Dive Bar Restaurant LLC Card 1234"
+    },
+    {
+      "Date": "02/14",
+      "Amount": "7.99",
+      "Description": "Card Purchase\t02/14 Netflix.Com Netflix.Com CA Card 1234"
+    },
+    {
+      "Date": "02/15",
+      "Amount": "1500.00",
+      "Description": "Recurring Card Purchase\t02/15 Landlord LLC Card 1234"
+    },
+    {
+      "Date": "02/23",
+      "Amount": "9.99",
+      "Description": "Recurring Card Purchase\t02/23 Spotify USA Card 1234"
+    },
+    {
+      "Date": "02/24",
+      "Amount": "25.86",
+      "Description": "Card Purchase\t02/24 Dive Bar Restaurant LLC Card 1234"
+    }
+  ],
+  "Checks": null
+}
